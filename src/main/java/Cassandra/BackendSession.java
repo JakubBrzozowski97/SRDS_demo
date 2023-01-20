@@ -1,51 +1,44 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package Cassandra;
 
-import com.datastax.driver.core.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import com.datastax.driver.core.PreparedStatement;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.ConsistencyLevel;
+import com.datastax.driver.core.QueryOptions;
+import com.datastax.driver.core.Session;
+import java.io.IOException;
+import java.util.Properties;
 
 public class BackendSession {
-
-    public static final Logger logger = LoggerFactory.getLogger(BackendSession.class);
-
     private Session session;
 
-    public BackendSession(String contactPoint, String keyspace) throws BackendException {
+    public BackendSession(String configFilename) throws BackendException {
+        Properties properties = new Properties();
 
-        Cluster cluster = Cluster.builder().addContactPoint(contactPoint).build();
         try {
-            session = cluster.connect(keyspace);
-        } catch (Exception e) {
-            throw new BackendException("Could not connect to the cluster. " + e.getMessage() + ".", e);
+            properties.load(BackendSession.class.getClassLoader().getResourceAsStream(configFilename));
+        } catch (IOException var8) {
+            var8.printStackTrace();
         }
-        //prepareStatements();
 
+        String contactPoint = properties.getProperty("contact_point");
+        String keyspace = properties.getProperty("keyspace");
+        Cluster cluster = Cluster.builder().addContactPoint(contactPoint).withQueryOptions((new QueryOptions()).setConsistencyLevel(ConsistencyLevel.ONE)).build();
+        this.session = cluster.connect();
+
+        try {
+            this.session = cluster.connect(keyspace);
+            System.out.println("Polaczano z klastrem " + keyspace);
+        } catch (Exception var7) {
+            System.out.println("ERR: Could not connect to the cluster " + var7.getMessage() + ".");
+        }
+
+    }
+
+    public Session getSession() {
+        return this.session;
+    }
 }
-
-    private static PreparedStatement DELETE_ALL_FROM_CLIENTS;
-    private static PreparedStatement DELETE_ALL_FROM_PASS;
-    private static PreparedStatement DELETE_ALL_FROM_PASS_TYPE;
-    private static PreparedStatement DELETE_ALL_FROM_PLACE;
-    private static PreparedStatement DELETE_ALL_FROM_EVENT;
-    private static PreparedStatement DELETE_ALL_TICKETS_COMPANY;
-    private static PreparedStatement DELETE_ALL_CHART_ELEMENTS;
-    private static PreparedStatement DELETE_ALL_CREDIT_CARD;
-    private static PreparedStatement DELETE_ALL_FROM_TICKET;
-
-    private static PreparedStatement SELECT_ALL_FROM_TICKETS;
-    private static PreparedStatement SELECT_ALL_FROM_CLIENTS;
-    private static PreparedStatement SELECT_ALL_FROM_EVENTS;
-
-    private static PreparedStatement INSERT_INTO_CLIENTS;
-    private static PreparedStatement INSERT_INTO_FROM_PASS;
-    private static PreparedStatement INSERT_INTO_FROM_PASS_TYPE;
-    private static PreparedStatement INSERT_INTO_FROM_PLACE;
-    private static PreparedStatement INSERT_INTO_FROM_EVENT;
-    private static PreparedStatement INSERT_INTO_TICKETS_COMPANY;
-    private static PreparedStatement INSERT_INTO_CHART_ELEMENTS;
-    private static PreparedStatement INSERT_INTO_CREDIT_CARD;
-    private static PreparedStatement INSERT_INTO_FROM_TICKET;
