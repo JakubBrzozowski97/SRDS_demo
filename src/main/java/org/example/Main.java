@@ -53,7 +53,7 @@ public class Main {
         Timestamp ts1 = Timestamp.valueOf("2018-09-01 09:01:15");
         Timestamp ts2 = Timestamp.valueOf("2018-09-01 10:01:15");
         event.addEvent(UUID.randomUUID(), "MECZyk","MECZ",ts1, ts2, 1);
-        tc.addTickets_Company(1, "Ticketmaster", "473473667","Poznan");
+        //tc.addTickets_Company(1, "Ticketmaster", "473473667","Poznan");
         //Credit_card cc = new Credit_card(backend);
         //cc.addCredit_card(ClientID, Credit_cardsID, "NULL");
         //UUID ClientID = UUID.randomUUID();
