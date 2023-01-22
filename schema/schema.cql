@@ -1,5 +1,8 @@
 CREATE KEYSPACE IF NOT EXISTS TicketsBooker
-  WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
+  WITH REPLICATION = {
+   'class' : 'NetworkTopologyStrategy',
+   'datacenter1' : 3
+  };
 
 USE TicketsBooker;
 
@@ -68,13 +71,14 @@ email varchar,
 PRIMARY KEY(Tickets_CompanyID)
 );
 
-CREATE TABLE Chart_elements(
-Chart_elementsID uuid,
-TicketID uuid,
-PassID uuid,
-ClientID uuid,
-PRIMARY KEY((Chart_elementsID), TicketID, PassID, ClientID)
+CREATE TABLE Chart_elements (
+ Chart_elementsID uuid,
+ TicketID uuid,
+ PassID uuid,
+ ClientID uuid,
+ PRIMARY KEY (ClientID, Chart_elementsID, TicketID, PassID)
 );
+
 
 CREATE TABLE Credit_cards(
 Credit_cardsID uuid,

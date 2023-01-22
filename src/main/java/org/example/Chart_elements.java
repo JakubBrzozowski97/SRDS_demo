@@ -37,6 +37,24 @@ public class Chart_elements {
         return chartelem;
     }
 
+    // Zwraca koszyk danego użytkownika
+    public List<Object> get_user_chart(UUID ClientID) {
+        StringBuilder sb = (new StringBuilder("SELECT Chart_elementsID FROM ")).append(TABLE_NAME)
+                .append(" WHERE ")
+                .append("ClientID ")
+                .append("= ")
+                .append(ClientID)
+                .append(";");
+        String query = sb.toString();
+        this.session.execute(query);
+        ResultSet rs = this.session.execute(query);
+        List<Object> chartelem = new ArrayList();
+        rs.forEach((r) -> {
+            chartelem.add(r.getUUID("Chart_elementsID"));
+        });
+        return chartelem;
+    }
+
     public void addChart_elements(UUID Chart_elementsID, UUID TicketID, UUID PassID, UUID ClientID) {
         StringBuilder sb = (new StringBuilder("INSERT INTO "))
                 .append(TABLE_NAME).append("(Chart_elementsID, TicketID, PassID, ClientID)")
@@ -62,3 +80,5 @@ public class Chart_elements {
     }
 
 }
+
+
