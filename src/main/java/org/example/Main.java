@@ -42,7 +42,9 @@ public class Main {
         chartElements.addChart_elements(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), clientID );
         chartElements.addChart_elements(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), clientID );
         chartElements.addChart_elements(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), clientID );
-        System.out.println(chartElements.get_user_chart(clientID));
+        var elements = chartElements.get_user_chart(clientID);
+        System.out.println(elements);
+        System.out.println(chartElements.get_user_chart_element(clientID, elements.get(0)));
 
 
 
