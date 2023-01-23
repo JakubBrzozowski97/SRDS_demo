@@ -1,9 +1,7 @@
 import Cassandra.BackendException;
 import Cassandra.BackendSession;
-import org.example.Client;
-import org.example.Place;
-import org.example.Ticket;
-import org.example.Tickets_Company;
+import jnr.ffi.Struct;
+import org.example.*;
 
 public class DBHandler {
     BackendSession backendSession;
@@ -37,6 +35,11 @@ public class DBHandler {
     public String add_ticket(Integer placeID, String eventID){
         Ticket ticket = new Ticket(this.backendSession);
         return ticket.addTicket("null", placeID, eventID);
+    }
+
+    public String add_event(String event_name, String event_type, String event_start, Struct.String event_stop, String Tickets_CompanyID){
+        Event event = new Event(this.backendSession);
+        return event.addEvent(event_name, event_type, event_start, event_stop, Tickets_CompanyID);
     }
 
     public String add_to_chart(){return "pass";}

@@ -59,7 +59,7 @@ event_type varchar,
 event_start timestamp,
 event_stop timestamp,
 Tickets_CompanyID int,
-PRIMARY KEY((EventID), Tickets_CompanyID)
+PRIMARY KEY(EventID, Tickets_CompanyID)
 );
 
 CREATE TABLE Tickets_Companies(
@@ -76,7 +76,7 @@ CREATE TABLE Chart_elements (
  TicketID uuid,
  PassID uuid,
  ClientID uuid,
- PRIMARY KEY (ClientID, Chart_elementsID, TicketID, PassID)
+ PRIMARY KEY (ClientID, TicketID, Chart_elementsID)
 );
 
 
