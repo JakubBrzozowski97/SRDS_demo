@@ -36,6 +36,7 @@ public class BackendSession {
             System.out.println("ERR: Could not connect to the cluster " +    var7.getMessage() + ".");
         }
 
+
     }
 
     public Session getSession() {

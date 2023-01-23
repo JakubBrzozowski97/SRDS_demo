@@ -36,15 +36,17 @@ public class Place {
         return places;
     }
 
-    public void addPlace(UUID PlaceID, String sector) {
+    public String addPlace(Integer placeID, String sector) {
         StringBuilder sb = (new StringBuilder("INSERT INTO "))
                 .append(TABLE_NAME).append(" (PlaceID, sector) ")
-                .append("VALUES (").append(PlaceID)
+                .append("VALUES (").append(placeID)
                 .append(", '")
                 .append(sector)
                 .append("');");
         String query = sb.toString();
         this.session.execute(query);
+        return placeID.toString();
+
     }
 
     public void deletePlace(UUID PlaceID) {

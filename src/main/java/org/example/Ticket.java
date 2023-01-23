@@ -8,6 +8,7 @@ package org.example;
 import Cassandra.BackendSession;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -30,32 +31,34 @@ public class Ticket {
         List<Object> tickets = new ArrayList();
         rs.forEach((r) -> {
             tickets.add(r.getInt("TicketID"));
-            tickets.add(r.getInt("PassID"));
+            tickets.add(r.getInt("EventID"));
             tickets.add(r.getInt("ClientID"));
-            tickets.add(r.getInt("PassID"));
+            tickets.add(r.getInt("PlaceID"));
         });
         return tickets;
     }
 
-    public void addTicket(UUID TicketID, UUID  PassID, UUID ClientID, Integer PlaceID) {
+    public String addTicket(String login, Integer PlaceID, String EventID) {
+        UUID ticketID = UUID.randomUUID();
         StringBuilder sb = (new StringBuilder("INSERT INTO "))
-                .append(TABLE_NAME).append("(TicketID, PassID, ClientID, PlaceID) ")
-                .append("VALUES (").append(TicketID)
-                .append(", ").append(PassID)
-                .append(", ").append(ClientID)
+                .append(TABLE_NAME).append("(TicketID, EventID, login, PlaceID) ")
+                .append("VALUES (").append(ticketID)
+                .append(", ").append(EventID)
+                .append(", ").append(login) //chyba nie trzeba zmieniać na uuid
                 .append(", ").append(PlaceID)
                 .append(");");
         String query = sb.toString();
         this.session.execute(query);
+        return ticketID.toString();
     }
 
-    public void deleteTicket(UUID TicketID) {
+    public void deleteTicket(String TicketID, String login, Integer PlaceID) {
         StringBuilder sb = (new StringBuilder("DELETE FROM "))
                 .append(TABLE_NAME)
                 .append(" WHERE ")
-                .append("TicketID ")
+                .append("login ")
                 .append("= ")
-                .append(TicketID)
+                .append(login)
                 .append(";");
         String query = sb.toString();
         this.session.execute(query);

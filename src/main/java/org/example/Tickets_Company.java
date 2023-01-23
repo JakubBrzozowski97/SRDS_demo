@@ -37,8 +37,9 @@ public class Tickets_Company {
         return tic_com;
     }
 
-    public void addTickets_Company(UUID Tickets_CompanyID, String company_name, String NIP, String address) {
-        String email = company_name + "@gmail,com";
+    public String addTickets_Company(String company_name, String NIP, String address) {
+        UUID Tickets_CompanyID = UUID.randomUUID();
+        String email = company_name + "@gmail.com";
         StringBuilder sb = (new StringBuilder("INSERT INTO "))
                 .append(TABLE_NAME)
                 .append(" (Tickets_CompanyID, company_name, NIP, address, email)")
@@ -50,5 +51,6 @@ public class Tickets_Company {
                 .append("');");
         String query = sb.toString();
         this.session.execute(query);
+        return Tickets_CompanyID.toString();
     }
 }

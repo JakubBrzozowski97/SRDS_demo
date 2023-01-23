@@ -11,10 +11,10 @@ USE TicketsBooker;
 
 CREATE TABLE Tickets(
 TicketID uuid,
-PassID uuid,
-ClientID uuid,
+EventID uuid,
+login varchar,
 PlaceID int,
-PRIMARY KEY((TicketID), ClientID, PlaceID, PassID)
+PRIMARY KEY(login, TicketID, EventID, PlaceID)
 );
 
 CREATE TABLE Passes(
@@ -47,7 +47,7 @@ PRIMARY KEY(login)
 );
 
 CREATE TABLE Places(
-PlaceID UUID,
+PlaceID int,
 sector varchar,
 PRIMARY KEY(PlaceID)
 );
@@ -63,7 +63,7 @@ PRIMARY KEY((EventID), Tickets_CompanyID)
 );
 
 CREATE TABLE Tickets_Companies(
-Tickets_CompanyID int,
+Tickets_CompanyID uuid,
 company_name varchar,
 NIP varchar,
 address varchar,

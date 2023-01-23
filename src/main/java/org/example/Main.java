@@ -66,7 +66,9 @@ public class Main {
 
         //System.out.println(client.getClients());
         //System.out.println(ClientID);
-        System.out.println(backend);
+        backend.getSession().close();
+        System.out.println(backend.getSession().isClosed());
+
 
     }
 
