@@ -57,49 +57,61 @@ public class Chart_elements {
 
     // Zwraca szczegóły konkretnego produktu z koszyka. Ze wzglęgu na działanie Cassandra potrzebne jest tutaj
     // ClientID.
-    public List<UUID> get_user_chart_element(UUID ClientID, UUID ElementID) {
+    public List<String> get_user_ticket_from_chart(String login) {
         StringBuilder sb = (new StringBuilder("SELECT * FROM ")).append(TABLE_NAME)
                 .append(" WHERE ")
-                .append("ClientID ")
+                .append("login ")
                 .append("= ")
-                .append(ClientID)
-                .append(" AND ")
-                .append("Chart_elementsID ")
-                .append("= ")
-                .append(ElementID)
+                .append(login)
                 .append(";");
         String query = sb.toString();
         this.session.execute(query);
         ResultSet rs = this.session.execute(query);
-        List<UUID> chartelem = new ArrayList();
+        List<String> chartelem = new ArrayList<>();
         rs.forEach((r) -> {
-            chartelem.add(r.getUUID("Chart_elementsID"));
-            chartelem.add(r.getUUID("TicketID"));
-            chartelem.add(r.getUUID("PassID"));
-            chartelem.add(r.getUUID("ClientID"));
+            chartelem.add(r.getUUID("TicketID").toString());
         });
         return chartelem;
     }
 
-    public void addChart_elements(UUID Chart_elementsID, UUID TicketID, UUID PassID, UUID ClientID) {
+
+    public String addChart_elements(String TicketID, String login) {
+        UUID id = UUID.randomUUID();
         StringBuilder sb = (new StringBuilder("INSERT INTO "))
-                .append(TABLE_NAME).append("(Chart_elementsID, TicketID, PassID, ClientID)")
-                .append("VALUES (").append(Chart_elementsID)
+                .append(TABLE_NAME).append("(Chart_elementsID, TicketID, login)")
+                .append("VALUES (").append(id)
                 .append(", ").append(TicketID)
-                .append(", ").append(PassID)
-                .append(", ").append(ClientID)
+                .append(", ").append(login)
                 .append(");");
+        String query = sb.toString();
+        this.session.execute(query);
+        return id.toString();
+    }
+
+    public void deleteChart_elements(String Chart_elementsID, String login, String TicketID) {
+        StringBuilder sb = (new StringBuilder("DELETE FROM "))
+                .append(TABLE_NAME)
+                .append(" WHERE ")
+                .append(" login =")
+                .append(login)
+                .append(" AND ")
+                .append(" TicketID = ")
+                .append(TicketID)
+                .append(" AND ")
+                .append("Chart_elementsID ")
+                .append("= ")
+                .append(Chart_elementsID)
+                .append(";");
         String query = sb.toString();
         this.session.execute(query);
     }
 
-    public void deleteChart_elements(UUID Chart_elementsID) {
+    public void deleteChart_elements(String login) {
         StringBuilder sb = (new StringBuilder("DELETE FROM "))
                 .append(TABLE_NAME)
                 .append(" WHERE ")
-                .append("Chart_elementsID ")
-                .append("= ")
-                .append(Chart_elementsID)
+                .append(" login =")
+                .append(login)
                 .append(";");
         String query = sb.toString();
         this.session.execute(query);

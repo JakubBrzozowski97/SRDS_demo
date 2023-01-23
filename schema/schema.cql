@@ -74,8 +74,7 @@ PRIMARY KEY(Tickets_CompanyID)
 CREATE TABLE Chart_elements (
  Chart_elementsID uuid,
  TicketID uuid,
- PassID uuid,
- ClientID uuid,
+ login varchar,
  PRIMARY KEY (ClientID, TicketID, Chart_elementsID)
 );
 

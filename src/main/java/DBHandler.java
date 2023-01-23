@@ -3,6 +3,8 @@ import Cassandra.BackendSession;
 import jnr.ffi.Struct;
 import org.example.*;
 
+import java.util.List;
+
 public class DBHandler {
     BackendSession backendSession;
     public DBHandler(String configFilename) throws BackendException {
@@ -42,9 +44,28 @@ public class DBHandler {
         return event.addEvent(event_name, event_type, event_start, event_stop, Tickets_CompanyID);
     }
 
-    public String add_to_chart(){return "pass";}
-    public String delete_from_chart(){return "pass";}
-    public String buy(){return "pass";}
+    public String add_to_chart(String login, String ticketID){
+        Chart_elements chartElements = new Chart_elements(this.backendSession);
+        return chartElements.addChart_elements(ticketID, login);
+    }
+    public void delete_from_chart(String login){
+        Chart_elements chartElements = new Chart_elements(this.backendSession);
+        chartElements.deleteChart_elements(login);
+    }
+
+    public void delete_from_chart(String login, String elementID, String ticketID){
+        Chart_elements chartElements = new Chart_elements(this.backendSession);
+        chartElements.deleteChart_elements(elementID, login, ticketID);
+    }
+    
+    public void buy(String login){
+        Chart_elements chartElements = new Chart_elements(this.backendSession);
+        Ticket ticket = new Ticket(this.backendSession);
+
+        List<String> bought_tickets = chartElements.get_user_ticket_from_chart(login);
+
+        bought_tickets.forEach((ticketID) -> ticket.updateTicket(ticketID, login));
+    }
 
 
 }

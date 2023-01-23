@@ -63,4 +63,20 @@ public class Ticket {
         String query = sb.toString();
         this.session.execute(query);
     }
+
+    public void updateTicket(String TicketID, String login) {
+        StringBuilder sb = (new StringBuilder("UPDATE "))
+                .append(TABLE_NAME)
+                .append(" SET ")
+                .append("login = ")
+                .append(login)
+                .append(" WHERE ")
+                .append("login ")
+                .append("='null'")
+                .append(" AND TicketID = '")
+                .append(TicketID)
+                .append("';");
+        String query = sb.toString();
+        this.session.execute(query);
+    }
 }
