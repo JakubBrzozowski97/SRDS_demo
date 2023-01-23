@@ -58,7 +58,7 @@ event_name varchar,
 event_type varchar,
 event_start timestamp,
 event_stop timestamp,
-Tickets_CompanyID int,
+Tickets_CompanyID uuid,
 PRIMARY KEY(EventID, Tickets_CompanyID)
 );
 

@@ -44,22 +44,23 @@ public class Ticket {
                 .append(TABLE_NAME).append("(TicketID, EventID, login, PlaceID) ")
                 .append("VALUES (").append(ticketID)
                 .append(", ").append(EventID)
-                .append(", ").append(login) //chyba nie trzeba zmieniać na uuid
-                .append(", ").append(PlaceID)
+                .append(", '").append(login)
+                .append("', ").append(PlaceID)
                 .append(");");
         String query = sb.toString();
+        System.out.println(query);
         this.session.execute(query);
         return ticketID.toString();
     }
 
-    public void deleteTicket(String TicketID, String login, Integer PlaceID) {
+    public void deleteTicket(String login) {
         StringBuilder sb = (new StringBuilder("DELETE FROM "))
                 .append(TABLE_NAME)
                 .append(" WHERE ")
                 .append("login ")
-                .append("= ")
+                .append("= '")
                 .append(login)
-                .append(";");
+                .append("';");
         String query = sb.toString();
         this.session.execute(query);
     }

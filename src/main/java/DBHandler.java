@@ -1,6 +1,5 @@
 import Cassandra.BackendException;
 import Cassandra.BackendSession;
-import jnr.ffi.Struct;
 import org.example.*;
 
 import java.util.List;
@@ -49,9 +48,19 @@ public class DBHandler {
         return ticket.addTicket("null", placeID, eventID);
     }
 
-    public String add_event(String event_name, String event_type, String event_start, Struct.String event_stop, String Tickets_CompanyID){
+    public void delete_ticket(String login){
+        Ticket ticket = new Ticket(this.backendSession);
+        ticket.deleteTicket(login);
+    }
+
+    public String add_event(String event_name, String event_type, String event_start, String event_stop, String Tickets_CompanyID){
         Event event = new Event(this.backendSession);
         return event.addEvent(event_name, event_type, event_start, event_stop, Tickets_CompanyID);
+    }
+
+    public void delete_event(String eventID){
+        Event event = new Event(this.backendSession);
+        event.deleteEvent(eventID);
     }
 
     public String add_to_chart(String login, String ticketID){
