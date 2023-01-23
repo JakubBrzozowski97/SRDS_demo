@@ -1,50 +1,32 @@
 package org.example;
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Properties;
-import java.util.*;
-import com.datastax.driver.core.Cluster;
-import com.datastax.driver.core.Session;
+
 import Cassandra.BackendException;
 import Cassandra.BackendSession;
-import java.io.IOException;
-import java.util.Properties;
-import com.datastax.driver.core.Row;
-import com.datastax.driver.core.ResultSet;
-import com.datastax.oss.driver.api.core.metadata.schema.ClusteringOrder;
-import com.datastax.oss.driver.api.core.type.DataTypes;
-import com.datastax.oss.driver.api.querybuilder.schema.CreateTable;
-import com.datastax.oss.driver.api.querybuilder.schema.CreateTableStart;
-import com.datastax.oss.driver.api.querybuilder.schema.CreateTableWithOptions;
-import com.github.javafaker.Faker;
-import com.github.javafaker.Name;
-import java.util.UUID;
-import com.datastax.oss.driver.api.core.uuid.Uuids;
-import static com.datastax.driver.core.DataType.uuid;
-import static com.datastax.oss.driver.api.querybuilder.SchemaBuilder.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.lang.Integer.toOctalString;
-import static org.junit.Assert.*;
 
 public class Main {
     public static void main(String[] args) throws BackendException{
 
         BackendSession backend = new BackendSession("config.properties");
 
-        Chart_elements chartElements = new Chart_elements(backend);
-        UUID clientID = UUID.randomUUID();
+        Client client = new Client(backend);
+        //client.addClient("Mateusz", "Biernacki", "mb", "mb@etr.pl", "4325234624", "c342354623226", "324", "2345");
+        List<String> list_of_clients_logins = client.getClients();
+        System.out.println(list_of_clients_logins);
+        System.out.println(client.getClient(list_of_clients_logins.get(0).toString()));
+//        Chart_elements chartElements = new Chart_elements(backend);
 
-        chartElements.addChart_elements(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), clientID );
-        chartElements.addChart_elements(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), clientID );
-        chartElements.addChart_elements(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), clientID );
-        chartElements.addChart_elements(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), clientID );
-        var elements = chartElements.get_user_chart(clientID);
-        System.out.println(elements);
-        System.out.println(chartElements.get_user_chart_element(clientID, elements.get(0)));
+
+//        UUID clientID = UUID.randomUUID();
+//
+//        chartElements.addChart_elements(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), clientID );
+//        chartElements.addChart_elements(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), clientID );
+//        chartElements.addChart_elements(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), clientID );
+//        chartElements.addChart_elements(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), clientID );
+//        var elements = chartElements.get_user_chart(clientID);
+//        System.out.println(elements);
+//        System.out.println(chartElements.get_user_chart_element(clientID, elements.get(0)));
 
 
 
@@ -84,8 +66,7 @@ public class Main {
 
         //System.out.println(client.getClients());
         //System.out.println(ClientID);
-
-
+        System.out.println(backend);
 
     }
 

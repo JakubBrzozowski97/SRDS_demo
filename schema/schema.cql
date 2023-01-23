@@ -41,9 +41,9 @@ surname varchar,
 login varchar,
 email varchar,
 password varchar,
-Credit_cardsID uuid,
+Credit_cardsID varchar,
 tel_number varchar,
-PRIMARY KEY((ClientID), Credit_cardsID)
+PRIMARY KEY(login)
 );
 
 CREATE TABLE Places(
@@ -81,9 +81,9 @@ CREATE TABLE Chart_elements (
 
 
 CREATE TABLE Credit_cards(
-Credit_cardsID uuid,
+Credit_cardsID varchar,
 ClientID uuid,
 back_code varchar,
 valid_data varchar,
-PRIMARY KEY((Credit_cardsID), ClientID)
+PRIMARY KEY(ClientID,Credit_cardsID)
 );

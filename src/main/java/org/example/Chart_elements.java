@@ -57,7 +57,7 @@ public class Chart_elements {
 
     // Zwraca szczegóły konkretnego produktu z koszyka. Ze wzglęgu na działanie Cassandra potrzebne jest tutaj
     // ClientID.
-    public List<Object> get_user_chart_element(UUID ClientID, UUID ElementID) {
+    public List<UUID> get_user_chart_element(UUID ClientID, UUID ElementID) {
         StringBuilder sb = (new StringBuilder("SELECT * FROM ")).append(TABLE_NAME)
                 .append(" WHERE ")
                 .append("ClientID ")
@@ -71,7 +71,7 @@ public class Chart_elements {
         String query = sb.toString();
         this.session.execute(query);
         ResultSet rs = this.session.execute(query);
-        List<Object> chartelem = new ArrayList();
+        List<UUID> chartelem = new ArrayList();
         rs.forEach((r) -> {
             chartelem.add(r.getUUID("Chart_elementsID"));
             chartelem.add(r.getUUID("TicketID"));
