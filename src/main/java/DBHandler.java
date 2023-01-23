@@ -39,6 +39,11 @@ public class DBHandler {
         return place.addPlace(placeID, sector);
     }
 
+    public void delete_place(int placeID){
+        Place place = new Place(this.backendSession);
+        place.deletePlace(placeID);
+    }
+
     public String add_ticket(Integer placeID, String eventID){
         Ticket ticket = new Ticket(this.backendSession);
         return ticket.addTicket("null", placeID, eventID);

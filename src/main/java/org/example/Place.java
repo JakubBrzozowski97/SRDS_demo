@@ -8,9 +8,9 @@ package org.example;
 import Cassandra.BackendSession;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Place {
     private int PlaceID;
@@ -49,7 +49,7 @@ public class Place {
 
     }
 
-    public void deletePlace(UUID PlaceID) {
+    public void deletePlace(int PlaceID) {
         StringBuilder sb = (new StringBuilder("DELETE FROM "))
                 .append(TABLE_NAME)
                 .append(" WHERE ")

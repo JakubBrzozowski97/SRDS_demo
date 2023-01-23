@@ -14,6 +14,10 @@ public class Test {
 
         String ticket_company_to_delete = db.add_ticket_company("Firma001", "12345678", "Poznan 12 123 214");
 
+        for (int i = 0; i < 10; i++){
+            db.add_place(i, "A");
+        }
+
 
 
 
@@ -26,5 +30,9 @@ public class Test {
         DBHandler db = new DBHandler("config.properties");
         db.delete_user(login_to_delete);
         db.delete_ticket_company(ticket_company_to_delete);
+
+        for (int i = 0; i < 10; i++){
+            db.delete_place(i);
+        }
     }
 }

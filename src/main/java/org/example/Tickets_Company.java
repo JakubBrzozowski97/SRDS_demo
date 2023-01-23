@@ -63,6 +63,6 @@ public class Tickets_Company {
                 .append(";");
         String query = sb.toString();
         this.session.execute(query);
-        return Tickets_CompanyID.toString();
+        return Tickets_CompanyID;
     }
 }
