@@ -50,6 +50,18 @@ public class Tickets_Company {
                 .append("', '").append(email)
                 .append("');");
         String query = sb.toString();
+        System.out.println(query);
+        this.session.execute(query);
+        return Tickets_CompanyID.toString();
+    }
+
+    public String delete_tickets_company(String Tickets_CompanyID) {
+        StringBuilder sb = (new StringBuilder("DELETE FROM "))
+                .append(TABLE_NAME)
+                .append(" WHERE ")
+                .append(" Tickets_CompanyID=").append(Tickets_CompanyID)
+                .append(";");
+        String query = sb.toString();
         this.session.execute(query);
         return Tickets_CompanyID.toString();
     }

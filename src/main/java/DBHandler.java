@@ -29,6 +29,11 @@ public class DBHandler {
         return ticketsCompany.addTickets_Company(name, nip, address);
     }
 
+    public String delete_ticket_company(String companyID){
+        Tickets_Company ticketsCompany = new Tickets_Company(this.backendSession);
+        return ticketsCompany.delete_tickets_company(companyID);
+    }
+
     public String add_place(int placeID, String sector){
         Place place = new Place(this.backendSession);
         return place.addPlace(placeID, sector);
