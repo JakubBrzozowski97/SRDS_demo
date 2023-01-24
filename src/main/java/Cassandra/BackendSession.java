@@ -33,8 +33,9 @@ public class BackendSession {
             this.session = cluster.connect(keyspace);
             System.out.println("Polaczano z klastrem " + keyspace);
         } catch (Exception var7) {
-            System.out.println("ERR: Could not connect to the cluster " + var7.getMessage() + ".");
+            System.out.println("ERR: Could not connect to the cluster " +    var7.getMessage() + ".");
         }
+
 
     }
 

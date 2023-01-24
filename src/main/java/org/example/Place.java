@@ -8,9 +8,9 @@ package org.example;
 import Cassandra.BackendSession;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Place {
     private int PlaceID;
@@ -36,18 +36,20 @@ public class Place {
         return places;
     }
 
-    public void addPlace(UUID PlaceID, String sector) {
+    public String addPlace(Integer placeID, String sector) {
         StringBuilder sb = (new StringBuilder("INSERT INTO "))
                 .append(TABLE_NAME).append(" (PlaceID, sector) ")
-                .append("VALUES (").append(PlaceID)
+                .append("VALUES (").append(placeID)
                 .append(", '")
                 .append(sector)
                 .append("');");
         String query = sb.toString();
         this.session.execute(query);
+        return placeID.toString();
+
     }
 
-    public void deletePlace(UUID PlaceID) {
+    public void deletePlace(int PlaceID) {
         StringBuilder sb = (new StringBuilder("DELETE FROM "))
                 .append(TABLE_NAME)
                 .append(" WHERE ")

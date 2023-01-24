@@ -37,8 +37,9 @@ public class Tickets_Company {
         return tic_com;
     }
 
-    public void addTickets_Company(UUID Tickets_CompanyID, String company_name, String NIP, String address) {
-        String email = company_name + "@gmail,com";
+    public String addTickets_Company(String company_name, String NIP, String address) {
+        UUID Tickets_CompanyID = UUID.randomUUID();
+        String email = company_name + "@gmail.com";
         StringBuilder sb = (new StringBuilder("INSERT INTO "))
                 .append(TABLE_NAME)
                 .append(" (Tickets_CompanyID, company_name, NIP, address, email)")
@@ -49,6 +50,19 @@ public class Tickets_Company {
                 .append("', '").append(email)
                 .append("');");
         String query = sb.toString();
+        System.out.println(query);
         this.session.execute(query);
+        return Tickets_CompanyID.toString();
+    }
+
+    public String delete_tickets_company(String Tickets_CompanyID) {
+        StringBuilder sb = (new StringBuilder("DELETE FROM "))
+                .append(TABLE_NAME)
+                .append(" WHERE ")
+                .append(" Tickets_CompanyID=").append(Tickets_CompanyID)
+                .append(";");
+        String query = sb.toString();
+        this.session.execute(query);
+        return Tickets_CompanyID;
     }
 }

@@ -1,5 +1,8 @@
 CREATE KEYSPACE IF NOT EXISTS TicketsBooker
-  WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
+  WITH REPLICATION = {
+   'class' : 'NetworkTopologyStrategy',
+   'datacenter1' : 3
+  };
 
 USE TicketsBooker;
 
@@ -8,10 +11,10 @@ USE TicketsBooker;
 
 CREATE TABLE Tickets(
 TicketID uuid,
-PassID uuid,
-ClientID uuid,
+EventID uuid,
+login varchar,
 PlaceID int,
-PRIMARY KEY((TicketID), ClientID, PlaceID, PassID)
+PRIMARY KEY(login, TicketID, EventID, PlaceID)
 );
 
 CREATE TABLE Passes(
@@ -38,13 +41,13 @@ surname varchar,
 login varchar,
 email varchar,
 password varchar,
-Credit_cardsID uuid,
+Credit_cardsID varchar,
 tel_number varchar,
-PRIMARY KEY((ClientID), Credit_cardsID)
+PRIMARY KEY(login)
 );
 
 CREATE TABLE Places(
-PlaceID UUID,
+PlaceID int,
 sector varchar,
 PRIMARY KEY(PlaceID)
 );
@@ -55,12 +58,12 @@ event_name varchar,
 event_type varchar,
 event_start timestamp,
 event_stop timestamp,
-Tickets_CompanyID int,
-PRIMARY KEY((EventID), Tickets_CompanyID)
+Tickets_CompanyID uuid,
+PRIMARY KEY(EventID, Tickets_CompanyID)
 );
 
 CREATE TABLE Tickets_Companies(
-Tickets_CompanyID int,
+Tickets_CompanyID uuid,
 company_name varchar,
 NIP varchar,
 address varchar,
@@ -68,18 +71,18 @@ email varchar,
 PRIMARY KEY(Tickets_CompanyID)
 );
 
-CREATE TABLE Chart_elements(
-Chart_elementsID uuid,
-TicketID uuid,
-PassID uuid,
-ClientID uuid,
-PRIMARY KEY((Chart_elementsID), TicketID, PassID, ClientID)
+CREATE TABLE Chart_elements (
+ Chart_elementsID uuid,
+ TicketID uuid,
+ login varchar,
+ PRIMARY KEY (ClientID, TicketID, Chart_elementsID)
 );
 
+
 CREATE TABLE Credit_cards(
-Credit_cardsID uuid,
+Credit_cardsID varchar,
 ClientID uuid,
 back_code varchar,
 valid_data varchar,
-PRIMARY KEY((Credit_cardsID), ClientID)
+PRIMARY KEY(ClientID,Credit_cardsID)
 );

@@ -38,7 +38,7 @@ public class Credit_card {
         return Credit_card;
     }
 
-    public void addCredit_card(UUID Credit_cardsID, UUID ClientID, String valid_data) {
+    public void addCredit_card(String Credit_cardsID, UUID ClientID, String valid_data) {
         Random generator = new Random();
         int num1 = generator.nextInt(900) + 100;
         String back_code = Integer.toString(num1);
@@ -51,6 +51,21 @@ public class Credit_card {
                 .append(", '").append(back_code)
                 .append("', '").append(valid_data)
                 .append("');");
+        String query = sb.toString();
+        this.session.execute(query);
+    }
+
+    public void addCredit_card(String Credit_cardsID, UUID ClientID, String valid_data, String cvv) {
+        StringBuilder sb = (new StringBuilder("INSERT INTO "))
+                .append(TABLE_NAME)
+                .append(" (ClientID, Credit_cardsID, back_code, valid_data)")
+                .append(" VALUES (")
+                .append(ClientID)
+                .append(", '").append(Credit_cardsID)
+                .append("', '").append(cvv)
+                .append("', '").append(valid_data)
+                .append("');");
+//        System.out.println(sb);
         String query = sb.toString();
         this.session.execute(query);
     }

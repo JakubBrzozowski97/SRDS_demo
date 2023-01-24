@@ -8,7 +8,7 @@ package org.example;
 import Cassandra.BackendSession;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
-import java.sql.Timestamp;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -39,7 +39,8 @@ public class Event {
         return events;
     }
 
-    public void addEvent(UUID EventID, String event_name, String event_type, Timestamp event_start, Timestamp event_stop, Integer Tickets_CompanyID) {
+    public String addEvent(String event_name, String event_type, String event_start, String event_stop, String Tickets_CompanyID) {
+        UUID EventID = UUID.randomUUID();
         StringBuilder sb = (new StringBuilder("INSERT INTO "))
                 .append(TABLE_NAME).append(" (EventID, event_name, event_type, event_start, event_stop, Tickets_CompanyID) ")
                 .append("VALUES (").append(EventID)
@@ -50,14 +51,16 @@ public class Event {
                 .append("', ").append(Tickets_CompanyID)
                 .append(");");
         String query = sb.toString();
+        System.out.println(query);
         this.session.execute(query);
+        return EventID.toString();
     }
 
-    public void deleteEvent(UUID EventID) {
+    public void deleteEvent(String EventID) {
         StringBuilder sb = (new StringBuilder("DELETE FROM "))
                 .append(TABLE_NAME)
                 .append(" WHERE ")
-                .append("PlaceID ")
+                .append("EventID ")
                 .append("= ")
                 .append(EventID)
                 .append(";");
