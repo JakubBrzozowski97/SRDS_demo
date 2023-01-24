@@ -87,7 +87,6 @@ public class DBHandler {
         Ticket ticket = new Ticket(this.backendSession);
 
         List<String> bought_tickets = chartElements.get_user_ticket_from_chart(login);
-        System.out.println(bought_tickets);
         bought_tickets.forEach((ticketID) -> ticket.updateTicket(ticketID, login));
     }
 
