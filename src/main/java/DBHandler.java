@@ -76,6 +76,11 @@ public class DBHandler {
         Chart_elements chartElements = new Chart_elements(this.backendSession);
         chartElements.deleteChart_elements(elementID, login, ticketID);
     }
+
+    public void delete_from_chart(String login, String ticketID){
+        Chart_elements chartElements = new Chart_elements(this.backendSession);
+        chartElements.deleteChart_elements(login, ticketID);
+    }
     
     public void buy(String login){
         Chart_elements chartElements = new Chart_elements(this.backendSession);

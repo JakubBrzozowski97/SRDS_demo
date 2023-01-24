@@ -92,15 +92,29 @@ public class Chart_elements {
         StringBuilder sb = (new StringBuilder("DELETE FROM "))
                 .append(TABLE_NAME)
                 .append(" WHERE ")
-                .append(" login =")
+                .append(" login ='")
                 .append(login)
-                .append(" AND ")
+                .append("' AND ")
                 .append(" TicketID = ")
                 .append(TicketID)
                 .append(" AND ")
                 .append("Chart_elementsID ")
                 .append("= ")
                 .append(Chart_elementsID)
+                .append(";");
+        String query = sb.toString();
+        this.session.execute(query);
+    }
+
+    public void deleteChart_elements(String login, String TicketID) {
+        StringBuilder sb = (new StringBuilder("DELETE FROM "))
+                .append(TABLE_NAME)
+                .append(" WHERE ")
+                .append(" login ='")
+                .append(login)
+                .append("' AND ")
+                .append(" TicketID = ")
+                .append(TicketID)
                 .append(";");
         String query = sb.toString();
         this.session.execute(query);
