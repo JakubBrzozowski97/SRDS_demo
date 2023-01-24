@@ -61,9 +61,9 @@ public class Chart_elements {
         StringBuilder sb = (new StringBuilder("SELECT * FROM ")).append(TABLE_NAME)
                 .append(" WHERE ")
                 .append("login ")
-                .append("= ")
+                .append("= '")
                 .append(login)
-                .append(";");
+                .append("';");
         String query = sb.toString();
         this.session.execute(query);
         ResultSet rs = this.session.execute(query);

@@ -65,19 +65,44 @@ public class Ticket {
         this.session.execute(query);
     }
 
-    public void updateTicket(String TicketID, String login) {
-        StringBuilder sb = (new StringBuilder("UPDATE "))
+    public void deleteTicket(String login, String ticketID) {
+        StringBuilder sb = (new StringBuilder("DELETE FROM "))
                 .append(TABLE_NAME)
-                .append(" SET ")
-                .append("login = ")
-                .append(login)
                 .append(" WHERE ")
                 .append("login ")
-                .append("='null'")
-                .append(" AND TicketID = '")
-                .append(TicketID)
-                .append("';");
+                .append("= '")
+                .append(login)
+                .append("' AND ")
+                .append("TicketID = ")
+                .append(ticketID)
+                .append(";");
         String query = sb.toString();
         this.session.execute(query);
+    }
+
+    public void updateTicket(String TicketID, String login) {
+
+        StringBuilder sb = new StringBuilder("SELECT * FROM TICKETS")
+                .append(" WHERE login='")
+                .append("null")
+                .append("' AND TicketID=")
+                .append(TicketID)
+                .append(";");
+        String query = sb.toString();
+        System.out.println(query);
+        this.session.execute(query);
+        ResultSet rs = this.session.execute(query);
+        List<String> tickets = new ArrayList();
+        rs.forEach((r) -> {
+            tickets.add(r.getUUID("TicketID").toString());
+            tickets.add(r.getUUID("EventID").toString());
+            tickets.add(r.getString("login"));
+            tickets.add(String.valueOf(r.getInt("PlaceID")));
+        });
+
+        System.out.println(tickets);
+
+        this.deleteTicket("null", tickets.get(0));
+        this.addTicket(login, Integer.valueOf(tickets.get(3)), tickets.get(1));
     }
 }

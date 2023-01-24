@@ -12,6 +12,7 @@ public class Test {
     public static void test1() throws BackendException, InterruptedException {
         DBHandler db = new DBHandler("config.properties");
 
+
         String login_to_delete = db.add_new_user("mateuszbiernacki@mateusz.pl", "user1", "Mateusz",
                 "Biernacki", "661062019", "123123123123", "1999", "123");
 
@@ -33,8 +34,12 @@ public class Test {
         db.add_to_chart(login_to_delete, tickets.get(1));
 
 
-
-
+        TimeUnit.SECONDS.sleep(5);
+        try{
+            db.buy(login_to_delete);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
 
 
         TimeUnit.SECONDS.sleep(10);
