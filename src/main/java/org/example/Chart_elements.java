@@ -81,8 +81,8 @@ public class Chart_elements {
                 .append(TABLE_NAME).append("(Chart_elementsID, TicketID, login)")
                 .append("VALUES (").append(id)
                 .append(", ").append(TicketID)
-                .append(", ").append(login)
-                .append(");");
+                .append(", '").append(login)
+                .append("');");
         String query = sb.toString();
         this.session.execute(query);
         return id.toString();
@@ -110,9 +110,9 @@ public class Chart_elements {
         StringBuilder sb = (new StringBuilder("DELETE FROM "))
                 .append(TABLE_NAME)
                 .append(" WHERE ")
-                .append(" login =")
+                .append(" login ='")
                 .append(login)
-                .append(";");
+                .append("';");
         String query = sb.toString();
         this.session.execute(query);
     }

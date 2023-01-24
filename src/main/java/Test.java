@@ -29,6 +29,10 @@ public class Test {
             tickets.add(db.add_ticket(i, event_to_delete));
         }
         System.out.println(tickets);
+        db.add_to_chart(login_to_delete, tickets.get(0));
+        db.add_to_chart(login_to_delete, tickets.get(1));
+
+
 
 
 
@@ -50,5 +54,6 @@ public class Test {
         db.delete_ticket("null");
         db.delete_ticket(login_to_delete);
         db.delete_event(event_to_delete);
+        db.delete_from_chart(login_to_delete);
     }
 }
